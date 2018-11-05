@@ -6,4 +6,4 @@ user=$1
 used=`grep $user ../data/current.txt | awk '{print $2}'`
 
 quota=30
-echo $(($quota - $used))
+echo "disponivel $(($quota - $used))"
