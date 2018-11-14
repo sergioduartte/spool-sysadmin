@@ -28,5 +28,5 @@ fi
 
 # retorna se esta ok para condicoes basicas de impressao
 
-echo $saida
+echo "$saida"
 

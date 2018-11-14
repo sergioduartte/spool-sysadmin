@@ -2,9 +2,10 @@
 
 user=$1
 file=$2
+path=`pwd`
 
 # TODO checagens 
-isOk=`bash print-requirements.sh $user $file`
+isOk=`bash $path/print-requirements.sh $user $file`
 
 
 
