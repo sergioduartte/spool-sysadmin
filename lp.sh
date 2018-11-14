@@ -3,7 +3,8 @@
 
 usr=`whoami`
 file=$1
+path=`pwd`
 
 # chama o script proprio em /scripts
-
-bash ~/spool-sysadmin/spool-sysadmin/scripts/print.sh $usr $file 
+echo $path
+bash $path/scripts/print.sh $usr $file

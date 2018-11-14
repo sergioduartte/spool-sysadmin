@@ -1,13 +1,17 @@
-# !/bin/bash
+#!/bin/bash
 
-usr=$1
+user=$1
 file=$2
 
-# checagens 
-# pre processamento
-# processa 
-# pos processo
-# avisos
+# TODO checagens 
+isOk=`bash print-requirements.sh $user $file`
+
+
+
+# TODO pre processamento
+# TODO processa 
+# TODO pos processo
+# TODO avisos
 
 # testando a chamada do script
-echo $usr " ta querendo imprimir " $file
+echo $user " ta querendo imprimir " $file
