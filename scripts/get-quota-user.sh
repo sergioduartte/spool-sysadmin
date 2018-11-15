@@ -2,7 +2,7 @@
 
 # script que retorna a quantidade de arquivos e paginas que o usuario imprimiu em determinado mes
 
-# padrao <usuario> <mes> <ano>
+# padrao de entrada <usuario> <mes> <ano>
 
 user=$1
 month=$2
