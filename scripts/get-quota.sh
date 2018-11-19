@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #script que retorna quanto de quota o usuario ainda tem
-
+# <nomeDoUsuario>
 user=$1
 used=`grep $user ../data/current.txt | awk '{print $2}'`
 

@@ -37,7 +37,8 @@ if [ $newQuota -lt 0 ]; then
 fi
 
 ## atualiza o bd
-newString="$user\t$newQuota\t$overflowQuota\t$(($userPrinted + 1))"
+##<usuario><quota><excedente><arquivos><total-impressoes>
+newString="$user\t$newQuota\t$overflowQuota\t$(($userPrinted + 1))\t$($($newQuota + $overflowQuota))"
 sed -i '/$user/d' ../data/aaaaa.txt
 echo -e $newString >> ../data/aaaaa.txt
 
