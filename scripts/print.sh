@@ -1,50 +1,48 @@
-#!/bin/bash
+# !/bin/bash
 
 user=$1
 file=$2
 path=`pwd`
 
 # checagens
-isOk=`bash $path/print-requirements.sh $user $file`
+isOk=`bash $path/print-requirements.sh $user $file | grep notOk`
 
-if [ `echo $isOk | grep notOk` -ne "" ]; then
-	errorMessage=`echo $isOk | awk '{print $2}'`
+if [ "$isOk" != "" ]; then
+	errorMessage=`echo $isOk | awk '{print $2FS$3}'`
 	echo "nao foi possivel imprimir $file. Causa: $errorMessage"
 	exit 1
 fi
 
 # imprime
-/usr/bin/lp $file
+# /usr/bin/lp $file
 
 # processa
-userQuota=`get-quota.sh $user`
-fileSize=`echo "$(wc -m teste.txt | awk '{print $1}') / 3600" | bc`
-userPrinted=`echo "$(wc -m teste.txt | awk '{print $4}'`
+userQuota=`bash get-quota.sh $user`
+fileSize=$(echo "$(wc -m $file | awk '{print $1}') / 3600" | bc)
+userPrinted=`bash get-actual-use.sh $user`
+filesPrinted=$(grep $user ../data/current.txt | awk '{print $4}')
 
-## caso a quantidade de caracteres a serem impressos caibam em uma so pagina
-if [ $filesize -lt 1 ]; then
+# caso a quantidade de caracteres a serem impressos caibam em uma so pagina
+if [ $fileSize -lt 1 ]; then
 		fileSize=1 
 fi
-
-newQuota=$(($userQuota - $fileSize))
+newPrintedPages=$(($fileSize + $userPrinted))
+echo $newPrintedPages "oxe..."
 
 overflowQuota=0
 
 ## caso a impressao seja maior que a cota do usuario
-if [ $newQuota -lt 0 ]; then
-	overflowQuota=$newQuota
-	newQuota=0
+if [ $newPrintedPages -gt 30 ]; then
+	overflowQuota=$(($newPrintedPages - 30))
+	newPrintedPages=30
+	echo "to passando aqui"
 fi
 
 ## atualiza o bd
 ##<usuario><quota><excedente><arquivos><total-impressoes>
-newString="$user\t$newQuota\t$overflowQuota\t$(($userPrinted + 1))\t$($($newQuota + $overflowQuota))"
-sed -i '/$user/d' ../data/aaaaa.txt
-echo -e $newString >> ../data/aaaaa.txt
+newString="$user\t$newPrintedPages\t$overflowQuota\t$(($filesPrinted + 1))\t$(($newPrintedPages + $overflowQuota))"
+sed -i "/$user/d" ../data/current.txt
+echo -e $newString >> ../data/current.txt
 
-
-# TODO avisos
-## imprimir quanto de cota resta ao usuario
-
-# testando a chamada do script
-echo $user " ta querendo imprimir " $file
+# imprimir quanto de cota resta ao usuario
+echo "o usuario ainda tem "$(bash get-quota.sh $user) "paginas de cota"
