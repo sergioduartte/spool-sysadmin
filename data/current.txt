@@ -1,6 +1,6 @@
 USER		QUOTA	EXCEED	FILES	PRINTED	
-adbysjva	0	0	0	0       
 alekssandroab	0	0	0	0       
+alessandrolfs	0	0	0	0       
 andersonsm	0	0	0	0       
 anissampc	0	0	0	0       
 antoniopdan	0	0	0	0       
@@ -35,4 +35,4 @@ tatianeaf	0	0	0	0
 ubuntu	0	0	0	0       
 viniciusdms	0	0	0	0       
 yagoct	0	0	0	0       
-alessandrolfs	30	5	5	35
+adbysjva	7	0	1	7
