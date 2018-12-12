@@ -14,7 +14,7 @@ if [ "$isOk" != "" ]; then
 fi
 
 # imprime
-# /usr/bin/lp $file
+/usr/bin/lp $file
 
 # processa
 userQuota=`bash get-quota.sh $user`
